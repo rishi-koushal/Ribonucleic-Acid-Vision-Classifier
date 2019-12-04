@@ -2,16 +2,18 @@
 
 A deep learning classifier that helps to identify the different types of RNA from the provided an unafold/mfold image output. The input sequences can contain miRNA, tRNA, tRNA Pseudo, YAMAT sequences. The purpose is to identify the disease causing miRNA's precursor from the lot. 
 
-## Getting Started
+## Why? and How?
 
-Every single cell in our body has a function. These cells has a structure, which consists of cells, nucleus and other important parts. The nucles consists of DNA, that has the instructions to build new cells. These instructions needs to be carried out of the cell to build new ones. That is done by the RNA. These RNA helps to transfer the instructions to create a new cell. There are 2 key players in RNA: mRNA and tRNA. The mRNA is the messenger RNA that consists of the messages to build the new cell. The tRNA the transfer RNA that decodes the messages from the mRNA. Thus, these help to build protein, that eventually becomes a cell, which could be hair cell, skin cell, or a nerve cell. 
+Every single cell in our body has a function. These cells have a structure, which consists of mitochondria, Plasma membrane nucleus and other such important parts. The nucles consists of DNA, that has the instructions to build new cells. These instructions needs to be carried out of the cell to build new ones. That is done by the RNA. These RNA helps to transfer the instructions to create a new cell. There are 2 key players in RNA: mRNA and tRNA. The mRNA is the messenger RNA that consists of the messages to build the new cell. The tRNA the transfer RNA that decodes the messages from the mRNA. Thus, these two help to build protein, that eventually becomes a cell, which could be  a hair cell, skin cell, or a nerve cell. 
 
-    There are cases where the RNA that comes out of the nucleus doesn't really build protein. These non-coding molecules have a plenty of options to perform in our body, they can control the cell copying in bacterial cell division to inactivating the X chromosome in the nucleus. But, back in the days, they call it the "Junk DNA'. Then Victor Ambros in 1993, discovered the first non-coding gene, that was called as miRNA. Over 7 years, they didn't realize the importance, but later they started researching about. It was breakthrough in biogenesis. As of now, there are just around 17,000 miRNA sequences. Further details and explanation can be seen using the link provided under the references. 
+There are cases where the RNA that comes out of the nucleus doesn't really translate to protein. These are called as non-coding molecules, which eventually have a plenty of options to perform in our body. They can go from controlling the cell copying in bacterial cell division to inactivating the X chromosome in the nucleus. But, back in the days, they call it the "Junk DNA'. But, Victor Ambros in 1993, discovered the first non-coding gene, that was called as miRNA. They didn't the amount of danger these small molecules could lead to. There are several research that takes places even now on these miRNAs. A strong association has been found between dysregulated miRNA molecules and various diseases such as cancer, neuro disorders, and autoimmune diseases. They play a crucial role in one of the most important cellular functions known as gene expression.
+
+We have built a vision classifier which will identify miRNA molecules based on their secondary structures. The secondary structure of a miRNA generally resembles a hairpin while the secondary structure of a tRNA generally resembles a clover. The main issue however is that there are tens of variations of tRNA and thousands of miRNA variations and even more non-tRNA and non-miRNA types of RNA. The classifier then must distinguish between miRNA, tRNA and other RNA molecules that may even resemble miRNA or tRNA.
 
 ### Prerequisites
 
-The project is base don python 3.7. It uses the basic libraries like NumPy, Pandas, Matplotlib etc. 
-In terms of sequencing, we've used the Biopython to deal witht the fasta files. Also, in order to fold the RNA, we used the ViennaRNA and forgi plot. 
+The project is based on python 3.7. It uses the basic libraries like NumPy, Pandas, Matplotlib etc. 
+In terms of sequencing, we've used the **Biopython** to deal with the fasta files. Also, in order to fold the RNA, we used the **ViennaRNA's forgi plot**
 
 You can install the the requirement.txt file by using the below command, provided you extract the clone folder
 
@@ -19,13 +21,15 @@ You can install the the requirement.txt file by using the below command, provide
 pip install -r requirements.txt
 ```
 
-### Installing
+If you'd like to jump directly, please look into to Part_1 notebook and then Part_2 notebook. Brief description is given in the notebooks as well. 
 
-As soon as you install the requirements.txt, please make sure you've installed [ViennaRNA](https://github.com/ViennaRNA/ViennaRNA) locally. The steps can be breifly classified into 5 steps:
+### Workflow
+
+As soon as you install the requirements.txt, please make sure you've installed [ViennaRNA](https://github.com/ViennaRNA/ViennaRNA) locally. You can check your local installation by running the code ``` import RNA```. The process can be breifly classified into 5 steps:
 
 ##### 1. Reading the fasta file
 
-Most of the RNA sequences will in .fa (fasta format). This file consists of list of RNA sequences and their IDs, description etc. Our job in this step is make use of Bio python's powerful feature to extract the sequences and their ID's for homo sapiens alone. The below code snippet will let us understand the procedure
+Most of the RNA sequences will be in .fa (fasta format). This file consists of list of RNA sequences and their IDs, description etc. Our job in this step is make use of Bio python's powerful feature to extract the sequences and their ID's for homo sapiens alone. The below code snippet will let us understand the procedure
 
 
 ```
@@ -40,7 +44,7 @@ Following this step, we can do some preprocessing to the sequences like joining 
 
 ##### 2. Plot the Secondary Structure
 
-The RNA secondary structure plays an important role in this project. We're using ViennaRNA and forgi plot to obtain the secondary structure. Make sure you install the dependencies before you execute the notebook code. The code snippet will look like
+The RNA secondary structure plays an important role in this project. We're using ViennaRNA's forgi plot to obtain the secondary structure. Make sure you install the dependencies before you execute the notebook code. The code snippet will look like
 
 ```
 cg = forgi.load_rna("examples/input/tRNA/0.fx", allow_many=False)
@@ -54,7 +58,7 @@ a = fvm.plot_rna(cg, text_kwargs={"fontweight":"black"}, lighten=0.5,
 
 ##### 3. Creating the Dataset
 
-Here, we not only focus majorly on miRNA, but also the tRNA that actually help to build the protein. The typica; function of the tRNA is to decode the mRNA's instructions. Inorder to classify them, we must manually label them inorder to create the perfect dataset for our model. The generic shape of miRNA will be hairpin and tRNA will be a clover leaf. With the help of multi label pigeon, we can annotate them really quick
+Here, we not only focus majorly on miRNA, but also the tRNA that actually help to build the protein. The typical function of the tRNA is to decode the mRNA's instructions. Inorder to classify them, we must manually label them inorder to create the perfect dataset for our model. The generic shape of miRNA will be hairpin and tRNA will be a clover leaf. With the help of multi label pigeon, we can annotate them really quick
 
 ```
 annotations = annotate(images,
@@ -68,7 +72,7 @@ Thus, we end up creating a dataset with image name with their corresponding labe
 
 ##### 4. Building the Vision Classifier Model
 
-Now, we've come to the step where we build a classifier. We're using fastai's vision classifier. The initial step is to build a data bunch with normalized images. **Since the RNAfold images are on the same dimensions we don't really require the data augmentation step**. Following this step, we build a classifier using the pre trained resnet34 model. (Thanks to fastai!) 
+Now, we've come to the step where we build a classifier. We're using fastai's vision classifier. The initial step is to build a data bunch with normalized images. **Since the RNAfold images are on the same dimensions we don't really require the data augmentation step, but it is always good to perform the data augmentation when we're working with images**. Following this step, we build a classifier using the pre trained resnet34 model. (Thanks to fastai!) 
 
 ```
 cnn_learner(data, models.resnet34, metrics=accuracy)
@@ -94,11 +98,11 @@ We built the dataset with 900+ images. Also, our model was trained using resnet3
 
 ### Points we'd like to raise
 
-We tried to build the dataset which was available from 
+We tried to build the dataset from the fasta files available from 
 * [miRBase] (http://mirbase.org)
 * [gtRNAdb] (http://gtrnadb.ucsc.edu)
 
-There's a claim that says that there are some false positives in the tRNA sequences. This would play a role in model. There's a scarcity in high confidence tRNAs. 
+There's a claim that says that there are some false positives in the tRNA sequences. This would play a role in model. There's a scarcity in high confidence tRNAs. It would be great if we could build the dataset furthermore and try to classifiy other role playing molecules like siRNA. 
 
 ## Contributing
 
@@ -117,3 +121,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 We'd like to thank Phillipe Loher, Director of Machine Learning, Thomas Jefferson and Professor Stephen Welch for mentoring and guiding us throughout this project.
+
+We're happy to receive any suggestion and ideas you'd like to improve this project.
