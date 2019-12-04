@@ -1,6 +1,6 @@
 # RNA Classification
 
-A deep learning classifier that helps to identify the different types of RNA from the provided an unafold/mfold image output. The input sequences can contain miRNA, tRNA, tRNA Pseudo, YAMAT sequences. The purpose is to identify the disease causing miRNA's precursor from the lot. 
+A deep learning classifier that helps to identify the different types of RNA from the provided unafold/mfold image output. The input sequences can contain miRNA, tRNA, tRNA Pseudo, YAMAT sequences. The purpose is to identify the disease causing miRNA's precursor from the lot. 
 
 ## Why? and How?
 
