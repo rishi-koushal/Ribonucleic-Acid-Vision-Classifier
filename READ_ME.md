@@ -99,19 +99,27 @@ We built the dataset with 900+ images. Also, our model was trained using resnet3
 ### Points we'd like to raise
 
 We tried to build the dataset from the fasta files available from 
-* [miRBase] (http://mirbase.org)
-* [gtRNAdb] (http://gtrnadb.ucsc.edu)
+* [miRBase](http://mirbase.org)
+* [gtRNAdb](http://gtrnadb.ucsc.edu)
 
 There's a claim that says that there are some false positives in the tRNA sequences. This would play a role in model. There's a scarcity in high confidence tRNAs. It would be great if we could build the dataset furthermore and try to classifiy other role playing molecules like siRNA. 
 
-## Contributing
+## References
 
-We'd like to thank all the open source libraries and forums that helped us in this project. 
-[BioStars](https://www.biostars.org/)
-[Forgi Plot](https://viennarna.github.io/forgi/graph_tutorial.html)
-[RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi)
-[Multilabel Pigeon](https://github.com/tzutalin/labelImg)
-[ViennaRNA](https://github.com/ViennaRNA/ViennaRNA)
+We'd like to thank all the open source libraries, forums that helped us in this project. 
+
+* [BioStars](https://www.biostars.org/)
+* [Forgi Plot](https://viennarna.github.io/forgi/graph_tutorial.html)
+* [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi)
+* [Multilabel Pigeon](https://github.com/tzutalin/labelImg)
+* [ViennaRNA](https://github.com/ViennaRNA/ViennaRNA)
+* [ResearchPaper](https://ieeexplore.ieee.org/document/6999274)
+* [ResearchPaper](https://www.nature.com/articles/srep25941)
+* [ResearchPaper](https://arxiv.org/pdf/1610.02281.pdf)
+* [ResearchPaper](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5565611)
+* [Fastai](https://www.fast.ai)
+
+and other blogs, tutorials.
 
 
 ## License
