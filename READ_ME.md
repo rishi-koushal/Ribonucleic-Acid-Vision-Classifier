@@ -68,7 +68,7 @@ annotations = annotate(images,
 
 ```
 
-Thus, we end up creating a dataset with image name with their corresponding label (miRNA, tRNA, neither)
+Thus, we end up creating a dataset with image name with their corresponding label (miRNA, tRNA, neither). You can download the dataset from [link](https://drive.google.com/open?id=1g807ROiCf1w1Mn8cFpMRnzoknVB4jDuL)
 
 ##### 4. Building the Vision Classifier Model
 
