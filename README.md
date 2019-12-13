@@ -93,7 +93,7 @@ Now we can train the model with the data bunch by finding the appropriate learni
 
 ### Our Progress and Performance results
 
-We built the dataset with 900+ images. Also, our model was trained using resnet34, resnet50 and densenet121. We were able to obtain fairly considerable accuracy of 93%. 
+We built the dataset with 900+ images. Also, our model was trained using resnet34, resnet50 and densenet121. We were able to obtain fairly considerable accuracy of 94%. 
 
 
 ### Points we'd like to raise
