@@ -53,7 +53,7 @@ a = fvm.plot_rna(cg, text_kwargs={"fontweight":"black"}, lighten=0.5,
 
 ```
 
-![RNA](/media/img427.png)
+![RNA](/media/mit.png)
 
 
 ##### 3. Creating the Dataset
